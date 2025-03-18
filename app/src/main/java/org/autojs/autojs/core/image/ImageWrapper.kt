@@ -242,29 +242,22 @@ open class ImageWrapper : Recyclable, MonitorResource {
         check(!isRecycled) { str(R.string.error_image_has_been_recycled) }
     }
     
-    /**
-     * Sets the width of the image while maintaining aspect ratio.
-     * @param newWidth The new width of the image
-     */
     @ScriptInterface
     fun setWidth(newWidth: Int) {
         require(newWidth > 0) { "Width must be positive" }
-        val aspectRatio = height.toFloat() / width.toFloat()
-        val newHeight = (newWidth * aspectRatio).toInt()
-        resize(newWidth, newHeight)
+        mWidth = newWidth
     }
 
     /**
-     * Sets the height of the image while maintaining aspect ratio.
+     * Sets the height of the image without considering aspect ratio.
      * @param newHeight The new height of the image
      */
     @ScriptInterface
     fun setHeight(newHeight: Int) {
         require(newHeight > 0) { "Height must be positive" }
-        val aspectRatio = width.toFloat() / height.toFloat()
-        val newWidth = (newHeight * aspectRatio).toInt()
-        resize(newWidth, newHeight)
+        mHeight = newHeight
     }
+
 
     fun clone(): ImageWrapper {
         ensureNotRecycled()
